@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { Icon } from '@iconify/react';
+import { Icon } from "@iconify/react";
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -11,7 +11,7 @@ interface SidebarProps {
 }
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
-  const pathname = usePathname();  
+  const pathname = usePathname();
 
   const trigger = useRef<any>(null);
   const sidebar = useRef<any>(null);
@@ -60,20 +60,21 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   return (
     <aside
       ref={sidebar}
-      className={`absolute left-0 top-0 z-9999 flex h-screen w-72.5 flex-col overflow-y-hidden bg-slate-800 duration-300 ease-linear lg:static lg:translate-x-0 ${
+      className={`absolute left-0 top-0 z-9999 flex h-screen w-72.5 flex-col overflow-y-hidden bg-slate-900 duration-300 ease-linear lg:static lg:translate-x-0 ${
         sidebarOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >
       {/* <!-- SIDEBAR HEADER --> */}
       <div className="flex items-center justify-between gap-2 px-6 py-5.5 text-white font-bold text-3xl lg:py-6.5">
-        <Link href="/">
-          PitEgg
-          {/* <Image
+        <Link href="/" className="flex items-center">
+          <Image
             width={176}
             height={32}
-            src={"/images/logo/logo.svg"}
-            alt="Logo"            
-          /> */}
+            src={"/images/logo.svg"}
+            alt="Logo"
+            className="size-16"
+          />
+          PitEgg
         </Link>
 
         <button
@@ -97,25 +98,29 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             />
           </svg>
         </button>
-      </div>      
+      </div>
 
-      <div className="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">        
-        <nav className="mt-5 px-4 py-4 lg:mt-9 lg:px-6">          
+      <div className="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
+        <nav className="mt-5 px-4 py-4 lg:mt-9 lg:px-6">
           <div>
             <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">
               MENU
             </h3>
 
-            <ul className="mb-6 flex flex-col gap-1.5">               
+            <ul className="mb-6 flex flex-col gap-1.5">
               <li>
                 <Link
                   href="/dashboard/home"
                   className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium duration-300 ease-in-out text-white hover:bg-meta-4 ${
-                    pathname.includes("home") &&
-                    "bg-slate-600"
+                    pathname.includes("home") && "bg-slate-600"
                   }`}
                 >
-                  <Icon icon="ri:dashboard-fill" width={18} height={18} className="fill-current" />
+                  <Icon
+                    icon="ri:dashboard-fill"
+                    width={18}
+                    height={18}
+                    className="fill-current"
+                  />
                   Dashboard
                 </Link>
               </li>
@@ -124,11 +129,15 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 <Link
                   href="/dashboard/monitoring"
                   className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium duration-300 ease-in-out text-white hover:bg-meta-4 ${
-                    pathname.includes("monitoring") &&
-                    "bg-slate-600"
+                    pathname.includes("monitoring") && "bg-slate-600"
                   }`}
                 >
-                  <Icon icon="material-symbols:monitoring-rounded" width={18} height={18} className="fill-current" />
+                  <Icon
+                    icon="material-symbols:monitoring-rounded"
+                    width={18}
+                    height={18}
+                    className="fill-current"
+                  />
                   Monitoring
                 </Link>
               </li>
@@ -137,11 +146,15 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 <Link
                   href="/dashboard/controlling"
                   className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium duration-300 ease-in-out text-white hover:bg-meta-4 ${
-                    pathname.includes("controlling") &&
-                    "bg-slate-600"
+                    pathname.includes("controlling") && "bg-slate-600"
                   }`}
                 >
-                  <Icon icon="mdi:controller-right" width={18} height={18} className="fill-current" />
+                  <Icon
+                    icon="mdi:controller-right"
+                    width={18}
+                    height={18}
+                    className="fill-current"
+                  />
                   Kontroling
                 </Link>
               </li>
@@ -150,11 +163,15 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 <Link
                   href="/dashboard/report"
                   className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium duration-300 ease-in-out text-white hover:bg-meta-4 ${
-                    pathname.includes("report") &&
-                    "bg-slate-600"
+                    pathname.includes("report") && "bg-slate-600"
                   }`}
                 >
-                  <Icon icon="carbon:report" width={18} height={18} className="fill-current" />
+                  <Icon
+                    icon="carbon:report"
+                    width={18}
+                    height={18}
+                    className="fill-current"
+                  />
                   Laporan
                 </Link>
               </li>
@@ -163,18 +180,20 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 <Link
                   href="/dashboard/help"
                   className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium duration-300 ease-in-out text-white hover:bg-meta-4 ${
-                    pathname.includes("help") &&
-                    "bg-slate-600"
+                    pathname.includes("help") && "bg-slate-600"
                   }`}
                 >
-                  <Icon icon="material-symbols:help-outline" width={18} height={18} className="fill-current" />                  
+                  <Icon
+                    icon="material-symbols:help-outline"
+                    width={18}
+                    height={18}
+                    className="fill-current"
+                  />
                   Bantuan
                 </Link>
               </li>
-
             </ul>
           </div>
-         
         </nav>
         {/* <!-- Sidebar Menu --> */}
       </div>

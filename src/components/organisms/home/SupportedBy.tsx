@@ -1,11 +1,31 @@
+import Image from "next/image";
+
 export default function SupportedBy() {
   return (
     <section className="container mx-auto px-6 xl:px-24">
-    <h2 className="text-4xl font-bold text-white text-center">Didukung oleh</h2>
-    <div className="mt-11 flex gap-5 justify-center">
-      <div className="bg-white p-2 rounded-lg"><img src="./images/amcc.svg" alt="" /></div>
-      <div className="bg-white p-2 rounded-lg"><img src="./images/amikom.svg" alt="" /></div>
-    </div>
-  </section>
+      <h2 className="text-4xl font-bold text-white text-center">
+        Didukung oleh
+      </h2>
+      <div className="mt-11 grid grid-cols-1 md:grid-cols-4 gap-5 place-content-center">
+        <div className="bg-white p-2 rounded-lg">
+          <Image
+            src="/images/amcc.svg"
+            alt="AMCC Logo"
+            width={400}
+            height={100}
+            className="size-full"
+          />
+        </div>
+        <div className="bg-white p-2 rounded-lg">
+          <Image
+            src="/images/amikom.svg"
+            alt="AMIKOM Logo"
+            width={400}
+            height={100}
+            className="size-full"
+          />
+        </div>
+      </div>
+    </section>
   );
 }

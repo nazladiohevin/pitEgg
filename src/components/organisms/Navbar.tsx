@@ -1,82 +1,98 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Image from "next/image";
+import { useRef, useState, useEffect } from "react";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
-interface Props {
-  className: string
-}
-
-const Navbar = ({ className }: Props) => {
+const Navbar = ({ className }: { className: string }) => {
   const router = useRouter();
+  const berandaRef = useRef(null);
+  const benefitRef = useRef(null);
+  const fiturRef = useRef(null);
+  const kontakKamiRef = useRef(null);
 
-  return (  
-    <nav className="sticky top-0 z-50">
-      <div className={`navbar bg-green-950 text-white shadow-md shadow-green-900/50 ${className} px-4 lg:px-9`}>
-        <div className="navbar-start">
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const [visible, setVisible] = useState(true);
+
+  const handleScroll = () => {
+    const currentScrollPos = window.scrollY;
+
+    if (currentScrollPos > prevScrollPos) {
+      setVisible(false);
+    } else {
+      setVisible(true);
+    }
+
+    setPrevScrollPos(currentScrollPos);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  });
+
+  return (
+    <nav
+      className={`fixed w-full z-50 backdrop-blur transition-all duration-500 ease-in ${
+        visible ? "top-0" : "-top-24"
+      }`}
+    >
+      <div
+        className={`navbar bg-green-950/40 text-white shadow-md ${className} px-4 lg:px-9`}
+      >
+        <div className="navbar-start space-x-3">
           <div className="dropdown">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost lg:hidden"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
-                />
-              </svg>
+            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+              <Icon icon="charm:menu-hamburger" className="size-10" />
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-green-900 rounded-box w-52"
+              className="menu menu-sm dropdown-content mt-3 z-[1] py-4 px-5 space-y-1 w-max text-base shadow bg-green-900 rounded-box"
             >
-              <li>
-                <Link href={"/"}>Beranda</Link>
-              </li>
-              <li>
-                <Link href={""}>Benefit</Link>
-              </li>
-              <li>
-                <Link href={""}>Fitur</Link>
-              </li>
-              <li>
-                <Link href={""}>Kontak Kami</Link>
-              </li>
+              {/* Buat versi mini */}
+              <li className="p-2">Beranda</li>
+              <li className="p-2">Benefit</li>
+              <li className="p-2">Fitur</li>
+              <li className="p-2">Kontak kami</li>
             </ul>
           </div>
-          <Link href={"/"} className="btn btn-ghost text-xl">pitEgg</Link>
+          <Link href={"/"}>
+            <Image
+              width={65}
+              height={65}
+              src={"images/logo.svg"}
+              alt="PitEgg Logo"
+            />
+          </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
-            <li>
-              <Link href={"/"}>Beranda</Link>
+          <ul className="menu menu-horizontal px-1 gap-x-8 font-semibold text-base">
+            <li className="underline-offset-2 transition-all cursor-pointer hover:underline hover:underline-offset-4">
+              Beranda
             </li>
-            <li>
-              <Link href={""}>Benefit</Link>
+            <li className="underline-offset-2 transition-all cursor-pointer hover:underline hover:underline-offset-4">
+              Benefit
             </li>
-            <li>
-              <Link href={""}>Fitur</Link>
+            <li className="underline-offset-2 transition-all cursor-pointer hover:underline hover:underline-offset-4">
+              Fitur
             </li>
-            <li>
-              <Link href={""}>Kontak Kami</Link>
+            <li className="underline-offset-2 transition-all cursor-pointer hover:underline hover:underline-offset-4">
+              Kontak Kami
             </li>
           </ul>
         </div>
         <div className="navbar-end space-x-3">
-          <Link href={"/auth/login"} className="btn btn-sm bg-transparent btn-outline border-white border-2 text-white hover:bg-transparent hover:border-white">
-            Masuk          
+          <Link
+            href={"/auth/login"}
+            className="btn btn-md bg-transparent btn- font-semibold border-white border-4 text-white hover:bg-white hover:border-white hover:text-green-950"
+          >
+            Masuk
           </Link>
         </div>
       </div>
     </nav>
   );
-}
+};
 
 export default Navbar;

@@ -10,9 +10,9 @@ export default function AdminLayout({
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
-    <>      
-      <div className="flex h-screen overflow-hidden bg-slate-900">        
-        <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />        
+    <>
+      <div className="flex h-screen overflow-hidden bg-slate-100">
+        <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
           <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
           <main>

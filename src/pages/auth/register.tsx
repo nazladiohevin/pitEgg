@@ -2,12 +2,15 @@ import Link from "next/link";
 import { useState } from "react";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "@/firebase/config";
+import Image from "next/image";
 
 export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
 
-  const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
+  const [createUserWithEmailAndPassword] =
+    useCreateUserWithEmailAndPassword(auth);
 
   const handleRegister = async () => {
     try {
@@ -16,93 +19,70 @@ export default function RegisterPage() {
 
       setEmail("");
       setPassword("");
-      
     } catch (e) {
       console.error(e);
     }
     // sessionStorage
-  }
+  };
 
-  return (    
+  return (
     <main>
-      <div className="flex flex-1 flex-col items-center justify-center px-6 py-20 lg:px-8">
-        <div className="bg-green-900 w-full py-10 rounded-xl md:w-[70%]">
-          <div className="mb-14">
-            <Link href={"/"}>
-              <img
-                className="mx-auto h-10 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                alt="Your Company"
-              />
-            </Link>
-            <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
-              Daftar menjadi mitra kami
-            </h2>
+      <div className="bg-green-900 h-screen min-h-[700px] grid grid-cols-1 md:grid-cols-2">
+        <div className="basis-1/2 py-10 px-6 bg-green-900 relative flex flex-col justify-center items-center">
+          <div>
+            <h1 className="text-5xl -mb-8 text-white text-center font-extrabold sm:text-6xl md:text-7xl">
+              Selamat Datang
+            </h1>
           </div>
-          <div className="flex gap-x-20 px-10 gap-y-5 flex-wrap md:flex-nowrap">
-            <div className="basis-full space-y-5 md:basis-1/2">
+          <div className="w-1/2">
+            <Image
+              src={"/images/chicken-1.webp"}
+              alt="smile chicken"
+              width={600}
+              height={600}
+              className="w-full"
+            />
+          </div>
+        </div>
+        <div className="basis-1/2 py-10 px-6 pt-20 flex flex-col items-center bg-green-800">
+          <div className="w-full sm:w-4/5 lg:w-7/12">
+            <div>
+              <Image
+                src="/images/logo.svg"
+                width="500"
+                height="500"
+                className="mx-auto size-30 w-auto mb-10"
+                alt="PitEgg Logo"
+              />
+              <h4 className="mb-5 text-3xl font-bold text-green-100">
+                Buat akun baru kamu...
+              </h4>
+            </div>
+            <div className="flex flex-col gap-7">
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium leading-6 text-white"
+                  className="block font-semibold leading-6 text-white"
                 >
-                  Nama Pemilik
+                  Nama
                 </label>
                 <div className="mt-2">
                   <input
-                    id="owner-name"
-                    name="owner-name"
+                    id="name"
+                    name="name"
                     type="text"
                     autoComplete="off"
                     required
-                    placeholder="John Doe"
-                    // onChange={(e) => setEmail(e.target.value)}
-                    className="c-input"
+                    placeholder="Suparmi (hanya contoh)"
+                    onChange={(e) => setName(e.target.value)}
+                    className="c-input w-full"
                   />
                 </div>
               </div>
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium leading-6 text-white"
-                >
-                  Nomor Telepon
-                </label>
-                <div className="mt-2">
-                  <input
-                    id="telp"
-                    name="telp"
-                    type="number"
-                    autoComplete="off"
-                    required
-                    placeholder="081xxxxxxx"
-                    // onChange={(e) => setEmail(e.target.value)}
-                    className="c-input"
-                  />
-                </div>
-              </div>
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium leading-6 text-white"
-                >
-                  Alamat
-                </label>
-                <div className="mt-2">
-                  <textarea 
-                    name="addresse" 
-                    id="addresse" 
-                    placeholder="Alamat anda..."
-                    className="c-input"                    
-                  ></textarea>                  
-                </div>
-              </div>
-            </div>
-            <div className="basis-full space-y-5 md:basis-1/2">
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium leading-6 text-white"
+                  className="block font-semibold leading-6 text-white"
                 >
                   Email
                 </label>
@@ -114,58 +94,50 @@ export default function RegisterPage() {
                     autoComplete="email"
                     required
                     placeholder="contoh@gmail.com"
-                    // onChange={(e) => setEmail(e.target.value)}
-                    className="c-input"
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="c-input w-full"
                   />
                 </div>
               </div>
               <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium leading-6 text-white"
-                >
-                  Password
-                </label>
+                <div className="flex items-center justify-between">
+                  <label
+                    htmlFor="password"
+                    className="block font-semibold leading-6 text-white"
+                  >
+                    Password
+                  </label>
+                </div>
                 <div className="mt-2">
                   <input
                     id="password"
                     name="password"
                     type="password"
                     autoComplete="off"
-                    required                    
-                    // onChange={(e) => setEmail(e.target.value)}
-                    className="c-input"
-                  />
-                </div>
-              </div>
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium leading-6 text-white"
-                >
-                  Konfirmasi Password
-                </label>
-                <div className="mt-2">
-                  <input
-                    id="confirm-password"
-                    name="confirm-password"
-                    type="password"
-                    autoComplete="off"
                     required
-                    // onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => setPassword(e.target.value)}
                     className="c-input"
                   />
                 </div>
               </div>
             </div>
-          </div>
-          <div className="flex justify-center mt-16">
-            <button className="flex w-min justify-center rounded-md bg-amber-600 px-36 py-3 text-lg font-semibold leading-6 text-white shadow-sm hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 transition-colors ease-out">
-              Daftar
-            </button>
+            <div className="mt-16 space-y-4">
+              <button className="w-full bg-amber-600 py-3 rounded-lg text-white shadow-lg font-semibold text-xl transition-all hover:scale-105 ">
+                Daftar
+              </button>
+              <p className="text-white">
+                Sudah memiliki akun?{" "}
+                <Link
+                  href="/auth/login"
+                  className="font-bold transition-all underline-offset-2 hover:underline-offset-4 hover:underline"
+                >
+                  Masuk
+                </Link>
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </main>    
+    </main>
   );
 }

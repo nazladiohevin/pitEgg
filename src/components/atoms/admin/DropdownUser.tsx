@@ -43,7 +43,7 @@ const DropdownUser = () => {
         className="flex items-center gap-4"
         href="#"
       >
-        <span className="hidden text-right text-white lg:block">
+        <span className="hidden text-right text-black lg:block">
           <span className="block text-sm font-medium">Ibu Basuki</span>
           <span className="block text-xs">Pemilik Peternakan</span>
         </span>
@@ -80,23 +80,26 @@ const DropdownUser = () => {
         ref={dropdown}
         onFocus={() => setDropdownOpen(true)}
         onBlur={() => setDropdownOpen(false)}
-        className={`absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border shadow-default border-strokedark bg-boxdark ${
+        className={`absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm shadow-lg bg-white ${
           dropdownOpen === true ? "block" : "hidden"
         }`}
       >
-        <ul className="flex flex-col gap-5 border-b px-6 py-7.5 border-strokedark">
+        <ul className="flex flex-col gap-5 px-6 py-4">
           <li>
             <Link
               href="/profile"
-              className="flex items-center gap-3.5 text-sm text-white font-medium duration-300 ease-in-out hover:translate-x-4 lg:text-base"              
+              className="flex items-center gap-3.5 text-sm text-slate-900 font-medium duration-300 ease-in-out hover:translate-x-4 lg:text-base"
             >
-              <Icon icon="iconamoon:profile-fill" className="text-white size-5.5" />
+              <Icon
+                icon="iconamoon:profile-fill"
+                className="text-slate-900 size-5.5"
+              />
               Akun Saya
             </Link>
           </li>
         </ul>
-        <button className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium text-white duration-300 ease-in-out hover:translate-x-4 lg:text-base">
-          <Icon icon="tabler:logout" className="text-white size-5.5" />
+        <button className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium text-slate-900 duration-300 ease-in-out hover:translate-x-4 lg:text-base">
+          <Icon icon="tabler:logout" className="text-slate-900 size-5.5" />
           Log Out
         </button>
       </div>

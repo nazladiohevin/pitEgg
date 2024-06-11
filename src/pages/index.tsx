@@ -11,16 +11,16 @@ import { useEffect } from "react";
 export default function Home() {
   const [user] = useAuthState(auth);
 
-  useEffect(() => {    
-    console.log(user);    
-  }, [user])
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
 
   return (
     <Layout>
-      <JumbotronHome />   
+      <JumbotronHome />
       <Benefit />
       <Feature />
       <SupportedBy />
-    </Layout>    
+    </Layout>
   );
 }

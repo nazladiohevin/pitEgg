@@ -19,7 +19,7 @@ const CardDataStats: React.FC<CardDataStatsProps> = ({
   children,
 }) => {
   return (
-    <div className="relative rounded-lg border px-7.5 py-6 shadow-default border-strokedark bg-slate-700">
+    <div className="relative rounded-lg px-7.5 py-6 shadow-4 shadow-slate-300 bg-white">
       <span
         className={`absolute top-3 right-4 size-3.5 rounded-full animate-ping duration-500 delay-150 ${
           levelUp && "bg-green-500"
@@ -37,8 +37,8 @@ const CardDataStats: React.FC<CardDataStatsProps> = ({
 
       <div className="mt-4 flex items-end justify-between">
         <div>
-          <h4 className="text-title-md font-bold text-white">{total}</h4>
-          <span className="text-sm font-medium text-slate-300">{title}</span>
+          <h4 className="text-title-md font-bold text-black">{total}</h4>
+          <span className="text-sm font-medium text-slate-600">{title}</span>
         </div>
 
         <span

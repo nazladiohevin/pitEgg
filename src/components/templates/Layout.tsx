@@ -8,16 +8,16 @@ import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
 interface LayoutProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
 export default function Layout({ children }: LayoutProps) {
-  return (  
+  return (
     <>
-      <div className="bg-green-950">
-        <Navbar className={inter.className}/>
+      <div className="bg-green-900">
+        <Navbar className={inter.className} />
         <main className={`flex flex-col gap-y-64 ${inter.className}`}>
-          { children }
+          {children}
         </main>
         <Footer className={inter.className} />
       </div>

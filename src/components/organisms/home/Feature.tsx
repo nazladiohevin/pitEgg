@@ -1,32 +1,42 @@
+import Image from "next/image";
+
 export default function Feature() {
   const features = [
     {
-      id: 1,
-      feature: "Kontrol Otomatis",
-      descrption:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae perferendis mollitia sequi.",
-      img: "feature.jpg",
+      feature: "Pengaturan Suhu dan Kelembapan Kandang",
+      description:
+        "Pastikan suhu dan kelembapan kandang selalu optimal untuk kesehatan ayam dengan pengaturan otomatis dari PitEgg.",
+      img: "suhu-kelembapan.webp",
     },
     {
-      id: 2,
-      feature: "Kontrol Otomatis",
-      descrption:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae perferendis mollitia sequi.",
-      img: "feature2.jpg",
+      feature: "Pengurangan Gas Amonia",
+      description:
+        "Kurangi kadar gas amonia di kandang secara efektif dengan sistem blower otomatis dan penyemprotan zat pengurang amonia, menciptakan lingkungan yang lebih sehat untuk ayam.",
+      img: "kurangi-gas.webp",
     },
     {
-      id: 3,
-      feature: "Kontrol Otomatis",
-      descrption:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae perferendis mollitia sequi.",
-      img: "feature.jpg",
+      feature: "Optimalisasi Biaya Listrik",
+      description:
+        "Hemat biaya listrik dengan otomatisasi alat kandang, membuat penggunaan energi lebih efisien dan mengurangi pengeluaran operasional.",
+      img: "optimisasi-listrik.webp",
     },
     {
-      id: 4,
-      feature: "Kontrol Otomatis",
-      descrption:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae perferendis mollitia sequi.",
-      img: "feature2.jpg",
+      feature: "Penyortiran Telur Otomatis",
+      description:
+        "Sortir telur secara otomatis dengan akurasi tinggi untuk memastikan kualitas terbaik dan meningkatkan efisiensi proses pemasaran.",
+      img: "egg-filtering.webp",
+    },
+    {
+      feature: "Otomatisasi Sistem IoT",
+      description:
+        "Atur perangkat IoT dengan mudah sesuai kebutuhan, mulai dari mode otomatis, semi-otomatis, hingga manual, untuk fleksibilitas pengelolaan kandang.",
+      img: "otomatisasi-alat.webp",
+    },
+    {
+      feature: "Pemantauan Kandang Jarak Jauh",
+      description:
+        "Pantau kondisi kandang secara real-time dari mana saja tanpa harus mengunjungi kandang, memastikan ayam selalu dalam kondisi terbaik.",
+      img: "monitoring.webp",
     },
   ];
 
@@ -34,22 +44,27 @@ export default function Feature() {
     <section>
       <div className="container mx-auto px-6 xl:px-24">
         <h2 className="font-bold text-4xl text-white text-center mb-24">
-          Di Pitikku kamu bisa...
+          Di PitEgg kamu bisa...
         </h2>
-        <div className="grid grid-cols-4 gap-x-12 gap-y-9 ">
+        <div className="flex justify-center flex-wrap gap-10">
           {features.map((feature, index) => (
-            <div key={index} className="card card-compact bg-green-800 shadow-xl">
+            <div
+              key={index}
+              className="card card-compact bg-green-800 shadow-xl basis-75 transition-all duration-300 ease-out hover:scale-110"
+            >
               <figure className="h-44">
-                <img
-                  src={`./images/${feature.img}`}
+                <Image
+                  src={`/images/${feature.img}`}
                   alt={feature.feature}
+                  width={400}
+                  height={400}
                   className="size-full object-cover object-center"
                   loading="lazy"
                 />
               </figure>
               <div className="card-body text-white">
                 <h2 className="card-title">{feature.feature}</h2>
-                <p>{ feature.descrption }</p>
+                <p>{feature.description}</p>
               </div>
             </div>
           ))}
