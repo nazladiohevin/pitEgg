@@ -66,15 +66,15 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
     >
       {/* <!-- SIDEBAR HEADER --> */}
       <div className="flex items-center justify-between gap-2 px-6 py-5.5 text-white font-bold text-3xl lg:py-6.5">
-        <Link href="/" className="flex items-center">
+        <Link href="/" className="flex w-full items-center justify-center">
           <Image
             width={176}
             height={32}
             src={"/images/logo.svg"}
             alt="Logo"
-            className="size-16"
+            className="size-20"
           />
-          PitEgg
+          {/* PitEgg */}
         </Link>
 
         <button
@@ -159,7 +159,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 </Link>
               </li>
 
-              <li>
+              {/* <li>
                 <Link
                   href="/dashboard/report"
                   className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium duration-300 ease-in-out text-white hover:bg-meta-4 ${
@@ -191,7 +191,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   />
                   Bantuan
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
         </nav>

@@ -44,17 +44,17 @@ const DropdownUser = () => {
         href="#"
       >
         <span className="hidden text-right text-black lg:block">
-          <span className="block text-sm font-medium">Ibu Basuki</span>
+          <span className="block text-sm font-medium">Rama Syailana</span>
           <span className="block text-xs">Pemilik Peternakan</span>
         </span>
 
         <span className="h-12 w-12 rounded-full">
           <Image
-            src={"/images/user1.jpg"}
+            src={"/images/user2.jpg"}
             alt="User"
             width={112}
             height={112}
-            className="rounded-full size-full object-cover object-center"
+            className="rounded-full size-full object-cover object-top"
           />
         </span>
 

@@ -31,7 +31,7 @@ export default function Benefit() {
     <section>
       <div className="container mx-auto px-6 xl:px-24">
         <div className="gap-9 grid grid-cols-1 gap-y-30 md:grid-cols-2">
-          <div className="h-54 flex items-center justify-center md:h-full md:justify-start">
+          <div className="h-54 flex items-center justify-center md:h-full md:justify-start bg-green-900/30 p-8 rounded-full">
             <Image
               src="/images/chicken-bro-magic.gif"
               alt=""
@@ -40,12 +40,12 @@ export default function Benefit() {
               className="object-cover object-center w-auto size-75 brightness-95 lg:w-4/5 lg:h-auto"
             />
           </div>
-          <div className="text-white">
+          <div className="text-green-900">
             <h2 className="font-bold text-4xl leading-snug">
               Kenapa harus memilih{" "}
               <span className="inline lg:block">PitEgg?</span>
             </h2>
-            <div className="pl-1 ml-auto space-y-6 mt-10 md:pl-6">
+            <div className="pl-1 ml-auto space-y-6 mt-10 md:pl-6 text-white">
               {benefits.map((benefit, index) => (
                 <div
                   className="flex font-medium text-lg items-center w-full 2xl:w-4/5 gap-x-5 bg-green-700 rounded-xl p-3"

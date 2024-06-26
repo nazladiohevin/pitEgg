@@ -1,82 +1,128 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CardDataStats from "@/components/atoms/admin/CardDataStats";
 import AdminLayout from "@/components/templates/AdminLayout";
-import { Icon } from "@iconify/react/dist/iconify.js";
-
-import { useEffect, useState } from "react";
-import { ref, onValue } from "firebase/database";
-import { db } from "@/firebase/config";
+import { dataStats } from "@/constants/data";
+import useGetRealtimeValue from "@/hooks/db/useGetRealtimeValue";
+import calculatePercentRealtimData from "@/utils/calculatePercentRealtimeData";
+import getEstimatedElectricityCosts from "@/utils/getEstimatedElectricityCosts";
+import formatToRupiah from "@/utils/formatToRupiah";
+import formatToNumber from "@/utils/formatNumber";
+import Head from "next/head";
 
 const DashboardPage = () => {
-  // TANGKAP DATA REALTIME
-  const [data, setData] = useState(null);
+  const baseIotPath = "user/1/iot/component/1";
+  const {
+    data: temperature,
+    error: temperatureError,
+    loading: temperatureLoading,
+  } = useGetRealtimeValue(`${baseIotPath}/temperature`);
+  const {
+    data: humidity,
+    error: humidityError,
+    loading: humidityLoading,
+  } = useGetRealtimeValue(`${baseIotPath}/humidity`);
+  const {
+    data: gas,
+    error: gasError,
+    loading: gasLoading,
+  } = useGetRealtimeValue(`${baseIotPath}/gas`);
+  const {
+    data: electricity,
+    error: electricityError,
+    loading: electricityLoading,
+  } = useGetRealtimeValue(`user/1/electricity`);
 
+  const [electric, setElectric] = useState(electricity);
+  const [estimatedElectricityCost, setEstimatedElectricityCost] =
+    useState<number>(0);
+
+  const [stats, setStats] = useState(dataStats);
+
+  const updateStat = (
+    title: string,
+    value: string,
+    range?: { topRange: number; bottomRange: number }
+  ) => {
+    // Nilai default jika range tidak diberikan
+    const defaultRange = { topRange: 0, bottomRange: 0 };
+
+    setStats((prevStats) =>
+      prevStats.map((stat) => {
+        const percentage = calculatePercentRealtimData(
+          parseInt(value),
+          range || defaultRange
+        );
+
+        return stat.title === title
+          ? {
+              ...stat,
+              total: value,
+              rate: `${
+                percentage.percent != 0
+                  ? percentage.percent.toFixed(0) + "%"
+                  : ""
+              }`,
+              levelDown: percentage.status === "down" ? true : false,
+              levelUp: percentage.status === "up" ? true : false,
+            }
+          : stat;
+      })
+    );
+  };
+
+  // Data Change
   useEffect(() => {
-    const dataRef = ref(db, "user/1/electricity");
-    const unsubscribe = onValue(dataRef, (snapshot) => {
-      setData(snapshot.val());
-      console.log(data);
-    });
+    if (temperature) {
+      updateStat("Suhu", `${temperature.value} °C`, {
+        topRange: 24,
+        bottomRange: 20,
+      });
+    }
+    if (humidity) {
+      updateStat("Kelembapan Udara", `${humidity.value} %`, {
+        topRange: 70,
+        bottomRange: 50,
+      });
+    }
+    if (gas) {
+      updateStat("Gas Amonia", `${gas.value} ppm`, {
+        topRange: 10,
+        bottomRange: 0,
+      });
+    }
+    if (electricity) {
+      setElectric(electricity);
+      setEstimatedElectricityCost(
+        getEstimatedElectricityCosts(electricity.value)
+      );
+    }
+  }, [temperature, humidity, gas, electricity]);
 
-    // Clean up the listener on unmount
-    return () => unsubscribe();
-  }, []);
-
+  // Error handle
   useEffect(() => {
-    console.log(data); // Data akan muncul di console ketika ada perubahan
-  }, [data]);
-
-  /**
-   * Mencari nilai
-   * Rate: dibandingkan dengan rata-rata dari (suhu, kelembapan, etx) stabil untuk ayam petelur
-   */
-  const stats = [
-    {
-      title: "Suhu",
-      total: "22 °C",
-      rate: "2%",
-      levelUp: false,
-      levelDown: true,
-      children: (
-        <Icon icon="carbon:temperature-max" className="text-white size-6" />
-      ),
-    },
-    {
-      title: "Kelembapan Udara",
-      total: "22 %",
-      rate: "",
-      levelUp: false,
-      levelDown: false,
-      children: <Icon icon="carbon:humidity" className="text-white size-6" />,
-    },
-    {
-      title: "Gas Amonia",
-      total: "30 ppm",
-      rate: "0.9%",
-      levelUp: true,
-      levelDown: false,
-      children: <Icon icon="iconoir:gas" className="text-white size-6" />,
-    },
-    {
-      title: "Jumlah Telur",
-      total: "56 butir telur",
-      rate: "",
-      levelUp: false,
-      levelDown: false,
-      children: (
-        <Icon icon="material-symbols:egg" className="text-white size-6" />
-      ),
-    },
-  ];
+    if (temperatureError) {
+      updateStat("Suhu", `No Connection`);
+    }
+    if (humidityError) {
+      updateStat("Kelembapan Udara", `No Connection`);
+    }
+    if (gasError) {
+      updateStat("Gas Amonia", `No Connection`);
+      setElectric({ error: true });
+    }
+  }, [temperatureError, humidityError, gasError, electricityError]);
 
   return (
     <>
+      <Head>
+        <title>Dashboard - Partner - PitEgg</title>
+      </Head>
       <AdminLayout>
         <h4 className="font-bold text-4xl mb-1">Data perHari</h4>
-        <small className="block font-medium italic mb-6">
+        {/* <small className="block font-medium italic mb-6">
           Klik untuk detail lebih lanjut
-        </small>
+        </small> */}
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
           {stats.map((stat, index) => (
             <CardDataStats {...stat} key={index}>
@@ -89,9 +135,9 @@ const DashboardPage = () => {
             <h4 className="font-extrabold text-2xl">Konsumsi Listrik</h4>
             <div className="mt-24 text-center">
               <p className="text-slate-700 font-extrabold text-5xl md:text-6xl">
-                30 Watt
+                {electric ? formatToNumber(electric.value) : 0} kWh
                 <span className="text-base no-underline font-normal">
-                  /hari
+                  /bulan
                 </span>
               </p>
             </div>
@@ -100,7 +146,11 @@ const DashboardPage = () => {
             <h4 className="font-extrabold text-2xl">Estimasi Bayar Listrik</h4>
             <div className="mt-24 text-center">
               <p className="text-slate-700 font-extrabold text-5xl md:text-6xl">
-                <span>Rp 123.000</span>
+                <span>
+                  {formatToRupiah(
+                    parseInt(estimatedElectricityCost.toFixed(3))
+                  )}
+                </span>
                 <span className="text-base font-normal">/bulan</span>
               </p>
             </div>

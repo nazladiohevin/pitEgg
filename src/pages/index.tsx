@@ -7,6 +7,7 @@ import Feature from "@/components/organisms/home/Feature";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/firebase/config";
 import { useEffect } from "react";
+import Head from "next/head";
 
 export default function Home() {
   const [user] = useAuthState(auth);
@@ -16,11 +17,16 @@ export default function Home() {
   }, [user]);
 
   return (
-    <Layout>
-      <JumbotronHome />
-      <Benefit />
-      <Feature />
-      <SupportedBy />
-    </Layout>
+    <>
+      <Head>
+        <title>Beranda</title>
+      </Head>
+      <Layout>
+        <JumbotronHome />
+        <Benefit />
+        <Feature />
+        <SupportedBy />
+      </Layout>
+    </>
   );
 }

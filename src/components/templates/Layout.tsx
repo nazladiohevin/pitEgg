@@ -14,9 +14,11 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   return (
     <>
-      <div className="bg-green-900">
+      <div>
         <Navbar className={inter.className} />
-        <main className={`flex flex-col gap-y-64 ${inter.className}`}>
+        <main
+          className={`bg-green-900/10 flex flex-col gap-y-64 ${inter.className}`}
+        >
           {children}
         </main>
         <Footer className={inter.className} />

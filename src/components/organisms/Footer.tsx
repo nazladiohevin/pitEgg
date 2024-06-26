@@ -8,7 +8,7 @@ interface Props {
 export default function Footer({ className }: Props) {
   return (
     <footer
-      className={`footer footer-center mt-48 p-10 bg-green-950 text-white rounded ${className}`}
+      className={`footer footer-center p-10 bg-green-950 text-white rounded ${className}`}
     >
       <nav className="grid grid-flow-col gap-4">
         <Link href="/auth/login" className="link link-hover">

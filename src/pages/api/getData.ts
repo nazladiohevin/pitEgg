@@ -2,18 +2,9 @@
 
 import { NextApiRequest, NextApiResponse } from 'next';
 import admin from 'firebase-admin';
-import path from 'path';
-import fs from 'fs';
+import { run } from "@/firebase/serverless-config";
 
-// Path to your Firebase service account key
-const serviceAccountPath = path.join(process.cwd(), 'src/config/pitegg-service-account-key.json');
-
-if (!admin.apps.length) {
-  admin.initializeApp({
-    credential: admin.credential.cert(JSON.parse(fs.readFileSync(serviceAccountPath, 'utf8'))),
-    databaseURL: "https://pitegg-beab6-default-rtdb.firebaseio.com"
-  });
-}
+run();
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {

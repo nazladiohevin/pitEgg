@@ -15,7 +15,7 @@ export default function JumbotronHome() {
           }}
           sizes="100vw"
           alt="Banner"
-          className="size-full object-cover object-right brightness-50 md:object-center md:brightness-75"
+          className="size-full object-cover object-right md:object-center"
         />
         <div className="absolute top-0 left-0 size-full z-10">
           <div className="flex size-full flex-col items-center justify-center text-white px-8 md:px-16">

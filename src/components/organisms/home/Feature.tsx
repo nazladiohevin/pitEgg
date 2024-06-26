@@ -43,14 +43,14 @@ export default function Feature() {
   return (
     <section>
       <div className="container mx-auto px-6 xl:px-24">
-        <h2 className="font-bold text-4xl text-white text-center mb-24">
+        <h2 className="font-bold text-4xl text-green-900 text-center mb-24">
           Di PitEgg kamu bisa...
         </h2>
         <div className="flex justify-center flex-wrap gap-10">
           {features.map((feature, index) => (
             <div
               key={index}
-              className="card card-compact bg-green-800 shadow-xl basis-75 transition-all duration-300 ease-out hover:scale-110"
+              className="card card-compact bg-green-800 shadow-lg shadow-green-900 basis-75 transition-all duration-300 ease-out  hover:scale-110"
             >
               <figure className="h-44">
                 <Image
